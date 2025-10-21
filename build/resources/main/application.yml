@@ -1,13 +1,13 @@
 server:
-  port: 8082
+  port: 8084
 
 spring:
   application:
-    name: shinhan-bank-server
+    name: user-server
   
   datasource:
-    url: jdbc:mysql://localhost:3308/shinhan_bank?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
-    username: root
+    url: jdbc:mysql://localhost:3310/user_db?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+    username: ${DB_USERNAME:root}
     password: ${MYSQL_ROOT_PASSWORD}
     driver-class-name: com.mysql.cj.jdbc.Driver
   
@@ -19,10 +19,16 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.MySQLDialect
         format_sql: true
+  
+  security:
+    user:
+      name: admin
+      password: admin
+      roles: ADMIN
 
 logging:
   level:
-    com.hanainplan.shinhan: DEBUG
+    com.hanainplan.user: DEBUG
     org.springframework.web: DEBUG
 
 # Swagger 설정
@@ -33,3 +39,10 @@ springdoc:
     path: /swagger-ui.html
     enabled: true
   show-actuator: true
+
+# CoolSMS 설정
+coolsms:
+  api-key: ${COOLSMS_API_HEY}
+  api-secret: ${COOLSMS_API_SECRET}
+  from-number: ${COOLSMS_FROM}
+  test-number: "010-8965-0136"  # 실제 문자를 받을 하드코딩된 번호
