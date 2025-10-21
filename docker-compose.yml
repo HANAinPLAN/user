@@ -1,40 +1,41 @@
 services:
-  user-server-app:
+  shinhan-bank-app:
     build: .
     ports:
-      - "8084:8084"
+      - "8082:8082"
     environment:
-      - DB_USERNAME=root
-      - DB_PASSWORD=${MYSQL_ROOT_PASSWORD}
-      - DB_HOST=user-mysql
+      - DB_USERNAME=${MYSQL_USER}
+      - DB_PASSWORD=${MYSQL_PASSWORD}
+      - DB_HOST=shinhan-mysql
     depends_on:
-      user-mysql:
+      shinhan-mysql:
         condition: service_healthy
     networks:
-      - user-network
+      - shinhan-network
 
-  user-mysql:
+  shinhan-mysql:
     image: mysql:8.0
-    container_name: user-mysql
+    container_name: shinhan-mysql
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       MYSQL_DATABASE: ${MYSQL_DATABASE}
       MYSQL_USER: ${MYSQL_USER}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
     ports:
-      - "3310:3306"
+      - "3308:3306"
     volumes:
-      - user_mysql_data:/var/lib/mysql
+      - shinhan_mysql_data:/var/lib/mysql
+#      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
       timeout: 20s
       retries: 10
     networks:
-      - user-network
+      - shinhan-network
 
 volumes:
-  user_mysql_data:
+  shinhan_mysql_data:
 
 networks:
-  user-network:
+  shinhan-network:
     driver: bridge
