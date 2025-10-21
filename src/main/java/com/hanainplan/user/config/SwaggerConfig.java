@@ -29,10 +29,10 @@ public class SwaggerConfig {
                                 .url("https://opensource.org/licenses/MIT")))
                 .servers(List.of(
                         new Server()
-                                .url("https://user-production-3188.up.railway.app/")
+                                .url("https://user-production-3188.up.railway.app")
                                 .description("개발 서버"),
                         new Server()
-                                .url("https://user-production-3188.up.railway.app/")
+                                .url("https://user-production-3188.up.railway.app")
                                 .description("로컬 서버")
                 ));
     }
